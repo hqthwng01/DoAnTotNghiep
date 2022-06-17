@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DA_TOTNGHIEP.Models;
+using static DA_TOTNGHIEP.Helper;
 
 namespace DA_TOTNGHIEP.Areas.Admin.Controllers
 {
@@ -47,65 +48,77 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
             return View(products);
         }
 
-        // GET: Admin/Products/Create
-        public IActionResult Create()
+
+        [NoDirectAccess]
+        public async Task<IActionResult> Create(int id = 0)
         {
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id");
             ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment");
             ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name");
-            return View();
+            if (id == 0)
+                return View(new Products());
+
+            else
+            {
+                var imageProduct = await _context.Products.FindAsync(id);
+                if (imageProduct == null)
+                {
+                    return NotFound();
+                }
+
+                return View(imageProduct);
+            }
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Sku,Name,Description,Price,Stock,ProductTypeId,ImageName,WarehouseId,ShipmentId,Status")] Products products)
+        public async Task<IActionResult> Create(int id, [Bind("Id,Sku,Name,Description,Price,Stock,ProductTypeId,ImageName,WarehouseId,ShipmentId,Status")] Products products)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //Insert
+                if (id == 0)
+                {
+                    _context.Add(products);
+                    ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
+                    ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
+                    ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
+                    await _context.SaveChangesAsync();
+                }
+                ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
+                ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
+                ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewAll", _context.Products.ToList()) });
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
-            ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
-            return View(products);
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "Create", products) });
         }
 
-        // GET: Admin/Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+
+        [NoDirectAccess]
+        public async Task<IActionResult> Edit(int id = 0)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id");
+            ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment");
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name");
+            if (id == 0)
+                return View(new Products());
 
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            else
             {
-                return NotFound();
+                var products = await _context.Products.FindAsync(id);
+                if (products == null)
+                {
+                    return NotFound();
+                }
+
+                return View(products);
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
-            ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
-            return View(products);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Sku,Name,Description,Price,Stock,ProductTypeId,ImageProduct,WarehouseId,ShipmentId,Status")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Sku,Name,Description,Price,Stock,ProductTypeId,ImageName,WarehouseId,ShipmentId,Status")] Products products)
         {
-            if (id != products.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -116,41 +129,16 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProductsExists(products.Id))
-                    {
-                        return NotFound();
-                    }
+                    { return NotFound(); }
                     else
-                    {
-                        throw;
-                    }
+                    { throw; }
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
+                ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
+                ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewAll", _context.Products.ToList()) });
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "Id", products.ProductTypeId);
-            ViewData["ShipmentId"] = new SelectList(_context.WarehouseDetails, "Id", "Shipment", products.ShipmentId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouse, "Id", "Name", products.WarehouseId);
-            return View(products);
-        }
-
-        // GET: Admin/Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var products = await _context.Products
-                .Include(p => p.ProductType)
-                .Include(p => p.Shipment)
-                .Include(p => p.Warehouse)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
-            {
-                return NotFound();
-            }
-
-            return View(products);
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "Edit", products) });
         }
 
         // POST: Admin/Products/Delete/5
@@ -161,7 +149,7 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
             var products = await _context.Products.FindAsync(id);
             _context.Products.Remove(products);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json(new { html = Helper.RenderRazorViewToString(this, "_ViewAll", _context.Products.ToList()) });
         }
 
         private bool ProductsExists(int id)

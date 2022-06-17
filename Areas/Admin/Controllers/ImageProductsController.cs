@@ -47,7 +47,7 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
         }
 
         [NoDirectAccess]
-        public async Task<IActionResult> ImageAdd(int id = 0)
+        public async Task<IActionResult> Create(int id = 0)
         {
             ViewData["ProductsID"] = new SelectList(_context.Products, "Id", "Id", "ProductsID");
             if (id == 0)
@@ -67,7 +67,7 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ImageAdd(int id, [Bind("Id,ImageName,ProductsID,Status")] ImageProduct imageProduct)
+        public async Task<IActionResult> Create(int id, [Bind("Id,ImageName,ProductsID,Status")] ImageProduct imageProduct)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
         }
 
         [NoDirectAccess]
-        public async Task<IActionResult> ImageEdit(int id = 0)
+        public async Task<IActionResult> Edit(int id = 0)
         {
             ViewData["ProductsID"] = new SelectList(_context.Products, "Id", "Id", "ProductsID");
             if (id == 0)
@@ -105,7 +105,7 @@ namespace DA_TOTNGHIEP.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ImageEdit(int id, [Bind("Id,ImageName,ProductsID,Status")] ImageProduct imageProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageName,ProductsID,Status")] ImageProduct imageProduct)
         {
             if (ModelState.IsValid)
             {

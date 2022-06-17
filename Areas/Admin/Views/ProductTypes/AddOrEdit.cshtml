@@ -3,7 +3,8 @@
     ViewData["Title"] = "Edit";
     Layout = null;
 }
-
+<h4>Tạo loại sản phẩm</h4>
+<hr />
     <div class="row">
         <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

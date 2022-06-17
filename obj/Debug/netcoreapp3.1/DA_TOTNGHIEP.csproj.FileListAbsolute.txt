@@ -428,13 +428,11 @@ D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\DA_TOTNGHIEP.dll
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\DA_TOTNGHIEP.pdb
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\DA_TOTNGHIEP.genruntimeconfig.cache
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Create.cshtml.g.cs
-D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Delete.cshtml.g.cs
-D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Details.cshtml.g.cs
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Edit.cshtml.g.cs
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Index.cshtml.g.cs
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\DA_TOTNGHIEP.csproj.AssemblyReference.cache
-D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\Details.cshtml.g.cs
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\Index.cshtml.g.cs
 D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\_ViewAll.cshtml.g.cs
-D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\ImageAdd.cshtml.g.cs
-D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\ImageEdit.cshtml.g.cs
+D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\_ViewAll.cshtml.g.cs
+D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\Create.cshtml.g.cs
+D:\DA_TOTNGHIEP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\ImageProducts\Edit.cshtml.g.cs

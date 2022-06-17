@@ -25,7 +25,6 @@ showInPopup = (url) => {
         success: function (res) {
             $('#form-modal .modal-body').html(res);
             $('#form-modal').modal('show');
-            $('#form-modal').modal('title');
             $(".close").click(function () {
                 $('#form-modal').modal('hide');
             });

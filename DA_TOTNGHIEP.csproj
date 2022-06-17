@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\Admin\Views\ImageProducts\Details.cshtml" />
-    <None Include="Areas\Admin\Views\ImageProducts\ImageEdit.cshtml" />
+    <None Include="Areas\Admin\Views\ImageProducts\Edit.cshtml" />
     <None Include="Areas\Admin\Views\ImageProducts\Index.cshtml" />
     <None Include="Areas\Admin\Views\ImageProducts\_ViewAll.cshtml" />
   </ItemGroup>
