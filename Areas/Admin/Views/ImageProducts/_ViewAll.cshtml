@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DA_TOTNGHIEP.Models.ImageProduct>
+@{
+    ViewData["Title"] = "ViewAll";
+}
+
+<a onclick="showInPopup('@Url.Action("ImageAdd","ImageProducts",null,Context.Request.Scheme)','Thêm ImageProducts')" class="btn btn-primary"><i class='bx bx-plus-circle ml-1'></i><h5 style="display:inline;color:white">Thêm loại sản phẩm</h5></a>
+<div class="card mt-2">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+
+                    <tbody>
+                        @if (Model.Count() != 0)
+                        {
+                            @foreach (var item in Model)
+                            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ImageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductsID)
+                            </td>
+                            <td>
+                                <div>
+                                    <a onclick="showInPopup('@Url.Action("ImageEdit","ImageProducts",new {id=item.Id})','Update')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Sửa</a>
+                                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                        <input type="submit" value="Xoá" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
